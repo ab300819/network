@@ -5,12 +5,13 @@ set(CMAKE_C_STANDARD 11)
 
 message(STATUS ${CMAKE_SYSTEM_NAME})
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-    set(APUE apue.3e)
+    # set(APUE apue.3e)
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
-    set(APUE /Users/mason/Project/book_source/unix/apue.3e)
+    # set(APUE /Users/mason/Project/book_source/unix/apue.3e)
 endif ()
 
+set(APUE apue.3e)
 include_directories(${APUE}/include)
 link_directories(${APUE}/lib)
 
@@ -18,10 +19,10 @@ link_directories(${APUE}/lib)
 add_executable(main src/main.c)
 
 # unix apue
-add_executable(1-3-ls src/apue/1_3_ls.c)
+add_executable(1-3-ls src/apue/1_3.c)
 target_link_libraries(1-3-ls apue)
 
-add_executable(1-4-io src/apue/1_4_io.c)
+add_executable(1-4-io src/apue/1_4.c)
 target_link_libraries(1-4-io apue)
 
 # unix unp
