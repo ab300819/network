@@ -19,11 +19,11 @@ link_directories(${APUE}/lib)
 add_executable(main src/main.c)
 
 # unix apue
-add_executable(1-3-ls src/apue/1_3.c)
-target_link_libraries(1-3-ls apue)
+add_executable(1-3 src/apue/1_3.c)
+target_link_libraries(1-3 apue)
 
-add_executable(1-4-io src/apue/1_4.c)
-target_link_libraries(1-4-io apue)
+add_executable(1-4 src/apue/1_4.c)
+target_link_libraries(1-4 apue)
 
 # unix unp
 add_executable(unp src/unp/main.c)
