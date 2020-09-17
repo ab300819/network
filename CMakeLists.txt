@@ -34,5 +34,8 @@ target_link_libraries(1-6 apue)
 add_executable(1-7 src/apue/1_7.c)
 target_link_libraries(1-7 apue)
 
+add_executable(1-8 src/apue/1_8.c)
+target_link_libraries(1-8 apue)
+
 # unix unp
 add_executable(unp src/unp/main.c)
