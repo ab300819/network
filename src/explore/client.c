@@ -10,29 +10,29 @@
 void send_data(int);
 
 int main(int argc, char const *argv[]) {
-	int sockfd;
-	struct sockaddr_in servaddr;
+	int sock_fd;
+	struct sockaddr_in serv_addr;
 
 	if (argc != 2) fprintf(stdout, "usage: client <IPaddress>");
 
-	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	sock_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-	bzero(&servaddr, sizeof(servaddr));
-	servaddr.sin_family = AF_INET;
-	servaddr.sin_port = htons(12345);
-	inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
+	bzero(&serv_addr, sizeof(serv_addr));
+	serv_addr.sin_family = AF_INET;
+	serv_addr.sin_port = htons(12345);
+	inet_pton(AF_INET, argv[1], &serv_addr.sin_addr);
 	int connect_rt =
-		connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
+		connect(sock_fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
 	if (connect_rt < 0) {
 		fprintf(stdout, "connect failed ");
 	}
 
-	send_data(sockfd);
+	send_data(sock_fd);
 
 	return EXIT_SUCCESS;
 }
 
-void send_data(int sockfd) {
+void send_data(int sock_fd) {
 	char *query;
 	query = malloc(MESSAGE_SIZE + 1);
 	for (int i = 0; i < MESSAGE_SIZE; i++) {
@@ -44,8 +44,8 @@ void send_data(int sockfd) {
 	cp = query;
 	size_t remaining = strlen(query);
 	while (remaining) {
-		int n_written = send(sockfd, cp, remaining, 0);
-		fprintf(stdout, "send into buffer %ld \n", n_written);
+		int n_written = send(sock_fd, cp, remaining, 0);
+		fprintf(stdout, "send into buffer %d \n", n_written);
 		if (n_written <= 0) {
 			fprintf(stdout, "send failed");
 			return;
