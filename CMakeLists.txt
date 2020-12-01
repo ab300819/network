@@ -25,4 +25,4 @@ target_link_libraries(apue_main apue)
 add_executable(unp_main src/unp/main.c)
 
 add_executable(server src/geek_time/server.c)
-add_executable(client src/geek_time/client.c)·
+add_executable(client src/geek_time/client.c)
