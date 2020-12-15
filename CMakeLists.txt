@@ -9,10 +9,11 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 	set(APUE /Users/mason/Project/book_source/unix/apue.3e)
+	set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
 endif ()
 
-include_directories(${APUE}/include)
-link_directories(${APUE}/lib)
+include_directories(${APUE}/include ${UNPV13}/lib)
+link_directories(${APUE}/lib ${UNPV13})
 
 # c primer plus
 add_executable(main src/main.c)
