@@ -6,11 +6,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 message(STATUS ${CMAKE_SYSTEM_NAME})
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-	set(APUE /home/zeus/apue.3e)
+    set(APUE /home/zeus/apue.3e)
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
-	set(APUE /Users/mason/Project/book_source/unix/apue.3e)
-	set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
+    set(APUE /Users/mason/Project/book_source/unix/apue.3e)
+    set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
 endif ()
 
 include_directories(${APUE}/include ${UNPV13}/lib)
@@ -25,6 +25,10 @@ target_link_libraries(apue_main apue)
 
 # unix unp
 add_executable(unp_main src/unp/main.c)
-
 add_executable(server src/geek_time/server.c)
 add_executable(client src/geek_time/client.c)
+add_executable(daytimetcpcli src/unp/daytimetcpcli.c)
+target_link_libraries(daytimetcpcli unp)
+
+# tenet
+add_executable(tenet src/tenet/main.c)
