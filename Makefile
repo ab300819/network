@@ -4,12 +4,12 @@ all:client server
 .PHONY:all
 
 client:src/networking_in_action/client.c
-	${CC} src/networking_in_action/client.c -o client 
+	${CC} src/networking_in_action/client.c -o client
 
 server:src/networking_in_action/server.c
 	${CC} src/networking_in_action/server.c -o server
 
-daytimetcpcli:src/unp/daytimetcpcli.c 
+daytimetcpcli:src/unp/daytimetcpcli.c
 	${CC} src/unp/daytimetcpcli.c -o daytimetcpcli
 
 thread01: src/core_in_c/thread01.c
@@ -36,6 +36,14 @@ signal01: src/core_in_c/signal01.c
 signal02: src/core_in_c/signal02.c
 	${CC} src/core_in_c/signal02.c -o signal02
 
+tenet: tenet.o
+	cc -o tenet tenet.o
+tenet.o: src/tenet/main.c
+	cc -c src/tenet/main.c -o tenet.o
+
+more:src/uup/more01.c
+	cc -g src/uup/more01.c -o more
+
 .PHONY:clean
 clean:
-	-rm -v thread* client server daytimetcpcli *.o
+	-rm -v thread* client server daytimetcpcli more tenet *.o
