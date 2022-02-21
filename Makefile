@@ -14,9 +14,9 @@ daytimetcpcli:daytimetcpcli.o
 daytimetcpcli.o:src/unp/daytimetcpcli.c
 	cc -c src/unp/daytimetcpcli.c
 
-demo01: src/core_in_c/demo01.c
-	cc src/core_in_c/demo01.c -o demo01 -lpthread
+thread01: src/core_in_c/thread01.c
+	cc src/core_in_c/thread01.c -o thread01 -lpthread
 
 .PHONY:clean
 clean:
-	-rm -rv demo01 client server daytimetcpcli *.o
+	-rm -rv thread01 client server daytimetcpcli *.o

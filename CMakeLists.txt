@@ -25,12 +25,12 @@ target_link_libraries(apue_main apue)
 
 # unix unp
 add_executable(unp_main src/unp/main.c)
-add_executable(server src/geek_time/server.c)
-add_executable(client src/geek_time/client.c)
+add_executable(server src/networking_in_action/server.c)
+add_executable(client src/networking_in_action/client.c)
 add_executable(daytimetcpcli src/unp/daytimetcpcli.c)
 target_link_libraries(daytimetcpcli unp)
 
-# tenet
-add_executable(tenet src/tenet/main.c)
+# core_in_c
+add_executable(tenet src/core_in_c/main.c)
 
-add_executable(demo01 src/demo01.c)
+add_executable(thread01 src/core_in_c/thread01.c)
