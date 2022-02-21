@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 message(STATUS ${CMAKE_SYSTEM_NAME})
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-    set(APUE /home/zeus/apue.3e)
+    set(APUE /opt/apue.3e)
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(APUE /Users/mason/Project/book_source/unix/apue.3e)
@@ -32,3 +32,5 @@ target_link_libraries(daytimetcpcli unp)
 
 # tenet
 add_executable(tenet src/tenet/main.c)
+
+add_executable(demo01 src/demo01.c)
