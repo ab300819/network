@@ -30,6 +30,12 @@ thread05: src/core_in_c/thread05.c
 thread06: src/core_in_c/thread06.c
 	${CC} src/core_in_c/thread06.c -o thread06 -lpthread
 
+signal01: src/core_in_c/signal01.c
+	${CC} src/core_in_c/signal01.c -o signal01
+
+signal02: src/core_in_c/signal02.c
+	${CC} src/core_in_c/signal02.c -o signal02
+
 .PHONY:clean
 clean:
 	-rm -v thread* client server daytimetcpcli *.o
