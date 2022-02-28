@@ -32,5 +32,3 @@ target_link_libraries(daytimetcpcli unp)
 
 # core_in_c
 add_executable(tenet src/core_in_c/main.c)
-
-add_executable(thread01 src/core_in_c/thread01.c)
