@@ -43,6 +43,20 @@ tenet.o: src/tenet/main.c
 
 more:src/uup/more01.c
 	cc -g src/uup/more01.c -o more
+time01: src/core_in_c/time01.c
+	${CC} src/core_in_c/time01.c -o time01
+
+time02: src/core_in_c/time02.c
+	${CC} src/core_in_c/time02.c -o time02
+
+time03: src/core_in_c/time03.c
+	${CC} src/core_in_c/time03.c -o time03
+
+time04: src/core_in_c/time04.c
+	${CC} src/core_in_c/time04.c -o time04 -lpthread
+
+atof: src/core_gitin_c/atof.c
+	${CC} src/core_in_c/atof.c -o atof
 
 .PHONY:clean
 clean:
