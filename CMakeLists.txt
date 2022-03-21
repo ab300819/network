@@ -38,7 +38,7 @@ add_executable(daytimetcpcli src/unp/daytimetcpcli.c)
 target_link_libraries(daytimetcpcli unp)
 
 # core_in_c
-add_executable(src/core_in_c/main.c)
+add_executable(core_in_c src/core_in_c/main.c)
 
 add_executable(test_cmocka src/core_in_c/test_cmocka.c)
 target_link_libraries(test_cmocka cmocka)
