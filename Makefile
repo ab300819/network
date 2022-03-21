@@ -58,6 +58,15 @@ time04: src/core_in_c/time04.c
 atof: src/core_gitin_c/atof.c
 	${CC} src/core_in_c/atof.c -o atof
 
+assert: src/core_in_c/assert01.c
+	$(CC) src/core_in_c/assert01.c -o assert
+
+errno01: src/core_in_c/errno01.c
+	$(CC) src/core_in_c/errno01.c -o errno01 -lm
+
+errno02: src/core_in_c/errno02.c
+	$(CC) src/core_in_c/errno02.c -o errno02 -lm -lpthread
+
 .PHONY:clean
 clean:
 	-rm -v thread* client server daytimetcpcli more tenet *.o
