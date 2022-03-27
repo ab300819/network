@@ -4,10 +4,10 @@ all:client server
 .PHONY:all
 
 client:src/networking_in_action/client.c
-	${CC} src/networking_in_action/client.c -o client
+	${CC} src/networking_in_action/client.c -o bin/client
 
 server:src/networking_in_action/server.c
-	${CC} src/networking_in_action/server.c -o server
+	${CC} src/networking_in_action/server.c -o bin/server
 
 daytimetcpcli:src/unp/daytimetcpcli.c
 	${CC} src/unp/daytimetcpcli.c -o daytimetcpcli

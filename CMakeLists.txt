@@ -13,15 +13,34 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(CMAKE_OSX_DEPLOYMENT_TARGET)
     set(APUE /Users/mason/Project/book_source/unix/apue.3e)
     set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
-    set(cmocka /usr/local/Cellar/cmocka/1.1.5)
+    set(CMOCKA /usr/local/Cellar/cmocka/1.1.5)
 endif ()
 
-include_directories(${APUE}/include
+include(CheckIncludeFiles)
+check_include_files("pthread.h;stdatomic.h;sys/socket.h;netinet/in.h;unistd.h" EDEPS)
+if (EPTHREAD EQUAL 1)
+    message(FATAL_ERROR "Necessary header files are not found!")
+endif ()
+
+include_directories(.
+        /usr/local/include
+        ${APUE}/include
         ${UNPV13}/include
-        ${cmocka}/include)
+        ${CMOCKA}/include)
+
 link_directories(${APUE}/lib
         ${UNPV13}/lib
-        ${cmocka}/lib)
+        ${CMOCKA}/lib)
+
+aux_source_directory(./src/mini_http_server DIR_SRCS)
+add_subdirectory(libs/)
+
+# load packages.
+find_package(uriparser 0.9.6 CONFIG REQUIRED char)
+
+# for executable.
+add_executable(mini_http_server ${DIR_SRCS})
+target_link_libraries(mini_http_server PUBLIC core m pthread uriparser::uriparser)
 
 # c primer plus
 add_executable(main src/main.c)
