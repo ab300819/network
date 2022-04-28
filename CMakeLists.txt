@@ -16,10 +16,10 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(CMAKE_OSX_DEPLOYMENT_TARGET)
     set(APUE /Users/mason/Project/book_source/unix/apue.3e)
     set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
-	#    set(CMOCKA /usr/local/Cellar/cmocka/1.1.5)
     find_package(uriparser 0.9.6 CONFIG REQUIRED char)
 endif ()
 
+# C 单元测试模块
 find_package(cmocka REQUIRED)
 
 include(CheckIncludeFiles)
