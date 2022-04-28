@@ -1,0 +1,7 @@
+aux_source_directory(. DIR_SRCS)
+add_executable(mini_http_server ${DIR_SRCS})
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    target_link_libraries(mini_http_server PUBLIC core m pthread ${URIPARSER_LIBRARIES})
+elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    target_link_libraries(mini_http_server PUBLIC core m pthread uriparser::uriparser)
+endif ()
