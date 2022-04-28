@@ -1,2 +1,2 @@
-add_executable(server server.c)
-add_executable(client client.c)
+add_executable(tcp_server tcp_server.c)
+add_executable(tcp_client tcp_client.c)
