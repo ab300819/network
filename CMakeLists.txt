@@ -36,7 +36,7 @@ include_directories(.
 link_directories(${APUE}/lib
         ${UNPV13}/lib)
 
-add_subdirectory(libs)
+add_subdirectory(src/common)
 add_subdirectory(src/apue)
 add_subdirectory(src/concurrency)
 add_subdirectory(src/core_in_c)
