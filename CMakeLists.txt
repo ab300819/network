@@ -3,17 +3,21 @@ project(unix_programming CXX C)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 message(STATUS ${CMAKE_SYSTEM_NAME})
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(APUE /opt/apue.3e)
-    set(cmocka /usr/local)
+    find_package(cmocka REQUIRED)
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+    find_package(PkgConfig REQUIRED)
+    pkg_search_module(URIPARSER REQUIRED liburiparser)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(CMAKE_OSX_DEPLOYMENT_TARGET)
     set(APUE /Users/mason/Project/book_source/unix/apue.3e)
     set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
     set(CMOCKA /usr/local/Cellar/cmocka/1.1.5)
+    find_package(uriparser 0.9.6 CONFIG REQUIRED char)
 endif ()
 
 include(CheckIncludeFiles)
@@ -25,22 +29,21 @@ endif ()
 include_directories(.
         /usr/local/include
         ${APUE}/include
-        ${UNPV13}/include
-        ${CMOCKA}/include)
+        ${UNPV13}/include)
 
 link_directories(${APUE}/lib
-        ${UNPV13}/lib
-        ${CMOCKA}/lib)
+        ${UNPV13}/lib)
 
-aux_source_directory(./src/mini_http_server DIR_SRCS)
 add_subdirectory(libs/)
-
-# load packages.
-find_package(uriparser 0.9.6 CONFIG REQUIRED char)
+aux_source_directory(src/mini_http_server DIR_SRCS)
 
 # for executable.
 add_executable(mini_http_server ${DIR_SRCS})
-target_link_libraries(mini_http_server PUBLIC core m pthread uriparser::uriparser)
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    target_link_libraries(mini_http_server PUBLIC core m pthread ${URIPARSER_LIBRARIES})
+elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    target_link_libraries(mini_http_server PUBLIC core m pthread uriparser::uriparser)
+endif ()
 
 # c primer plus
 add_executable(main src/main.c)
