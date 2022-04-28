@@ -60,7 +60,7 @@ noreturn void* accept_conn(void* arg) {
 			write(acceptedSocket, resBuf, strlen(resBuf));
 		}
 		close(acceptedSocket);
-		pthread_cleanup_pop(0)
+		pthread_cleanup_pop(0);
 	}
 }
 
