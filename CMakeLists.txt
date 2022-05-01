@@ -32,7 +32,8 @@ endif ()
 include_directories(.
         /usr/local/include
         ${APUE}/include
-        ${UNPV13}/include)
+        ${UNPV13}/include
+        src/common)
 
 link_directories(${APUE}/lib
         ${UNPV13}/lib)

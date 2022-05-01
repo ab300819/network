@@ -10,9 +10,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "libs/helpers.h"
-#include "libs/macros.h"
-#include "libs/structs.h"
+#include "helpers.h"
+#include "macros.h"
+#include "structs.h"
 
 atomic_int thread_count = 0;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
