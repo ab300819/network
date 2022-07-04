@@ -46,5 +46,6 @@ add_subdirectory(src/essential)
 add_subdirectory(src/mini_http_server)
 add_subdirectory(src/networking_in_action)
 add_subdirectory(src/unp)
+add_subdirectory(src/algorithm)
 
 add_executable(main src/main.c)
