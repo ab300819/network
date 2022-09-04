@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
 
 	sock_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-	bzero(&serv_addr, sizeof(serv_addr));
+	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_port = htons(12345);
 	inet_pton(AF_INET, argv[1], &serv_addr.sin_addr);
@@ -44,8 +44,8 @@ void send_data(int sock_fd) {
 	cp = query;
 	size_t remaining = strlen(query);
 	while (remaining) {
-		int n_written = send(sock_fd, cp, remaining, 0);
-		fprintf(stdout, "send into buffer %d \n", n_written);
+		ssize_t n_written = send(sock_fd, cp, remaining, 0);
+		fprintf(stdout, "send into buffer %zd \n", n_written);
 		if (n_written <= 0) {
 			fprintf(stdout, "send failed");
 			return;
