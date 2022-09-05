@@ -1,12 +1,6 @@
-#include <errno.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <unistd.h>
+#include <lib/common.h>
 
 void read_data(int);
-size_t readn(int, void *, size_t);
 
 int main(int argc, char const *argv[]) {
 	int listen_fd, conn_fd;
@@ -46,26 +40,4 @@ void read_data(int sockfd) {
 		fprintf(stdout, "1k read for %d \n", time);
 		usleep(1000);
 	}
-}
-
-size_t readn(int fd, void *buffer, size_t size) {
-	char *buffer_pointer = buffer;
-	int length = size;
-
-	while (length > 0) {
-		int result = read(fd, buffer_pointer, length);
-		if (result < 0) {
-			if (errno == EINTR)
-				continue;
-			else
-				return -1;
-		} else if (result == 0) {
-			break;
-		}
-
-		length -= result;
-		buffer_pointer += result;
-	}
-
-	return size - length;
 }

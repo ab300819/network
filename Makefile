@@ -3,10 +3,10 @@ CC=clang
 all:client server
 .PHONY:all
 
-client:src/networking_in_action/tcp_client.c
+client:src/networking_in_action/05.tcp_client.c
 	${CC} src/networking_in_action/client.c -o bin/client
 
-server:src/networking_in_action/tcp_server.c
+server:src/networking_in_action/05.tcp_server.c
 	${CC} src/networking_in_action/server.c -o bin/server
 
 daytimetcpcli:src/unp/daytimetcpcli.c
