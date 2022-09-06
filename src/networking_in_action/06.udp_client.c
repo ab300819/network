@@ -48,6 +48,12 @@ int main(int argc, char **argv) {
 		}
 		printf("send bytes: %zu \n", rt);
 
+		struct timeval timout = {5, 0};
+		if (setsockopt(socket_fd, SOL_SOCKET, SO_RCVTIMEO, &timout,
+					   sizeof(timout)) < 0) {
+			error(1, 0, "setsockopt failed\n");
+		}
+
 		len = 0;
 		n = recvfrom(socket_fd, recv_line, MAX_LINE, 0, reply_addr, &len);
 		if (n < 0) {
