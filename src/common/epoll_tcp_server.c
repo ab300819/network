@@ -1,6 +1,3 @@
-//
-// Created by mason on 22-11-9.
-//
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -78,7 +75,7 @@ void server_run() {
   int nfds;
   int listen_sock;
   int conn_sock;
-  int sock_len;
+  int socklen;
   char buf[BUF_SIZE];
   struct sockaddr_in srv_addr;
   struct sockaddr_in cli_addr;
@@ -95,14 +92,15 @@ void server_run() {
   epfd = epoll_create(1);
   epoll_ctl_add(epfd, listen_sock, EPOLLIN | EPOLLOUT | EPOLLET);
 
-  sock_len = sizeof(cli_addr);
+  socklen = sizeof(cli_addr);
   for (;;) {
     nfds = epoll_wait(epfd, events, MAX_EVENT, -1);
     for (int i = 0; i < nfds; ++i) {
       if (events[i].data.fd == listen_sock) {
-        conn_sock =
-            accept(listen_sock, (struct sockaddr *)&cli_addr, &sock_len);
-        inet_ntop(AF_INET, (char *)&(cli_addr.sin_addr),buf, sizeof(cli_addr));
+        /* handle new connection */
+        conn_sock = accept(listen_sock, (struct sockaddr *)&cli_addr, &socklen);
+
+        inet_ntop(AF_INET, (char *)&(cli_addr.sin_addr), buf, sizeof(cli_addr));
         printf("[+] connected with %s:%d\n", buf, ntohs(cli_addr.sin_port));
         set_nonblocking(conn_sock);
         epoll_ctl_add(epfd, conn_sock,
@@ -111,16 +109,17 @@ void server_run() {
         for (;;) {
           bzero(buf, sizeof(buf));
           n = read(events[i].data.fd, buf, sizeof(buf));
-          if (n <= 0) {
+          if (n <= 0 /* || errno == EAGAIN */) {
             break;
           } else {
-            printf("[+]data: %s\n", buf);
+            printf("[+] data: %s\n", buf);
             write(events[i].data.fd, buf, strlen(buf));
           }
         }
       } else {
         printf("[+] unexpected\n");
       }
+      /* check if the connection is closing */
       if (events[i].events & (EPOLLRDHUP | EPOLLHUP)) {
         printf("[+] connection closed\n");
         epoll_ctl(epfd, EPOLL_CTL_DEL, events[i].data.fd, NULL);
@@ -131,18 +130,21 @@ void server_run() {
   }
 }
 
+/*
+ * test clinet
+ */
 void client_run() {
   int n;
   int c;
-  int sock_fd;
+  int sockfd;
   char buf[MAX_LINE];
   struct sockaddr_in srv_addr;
 
-  sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+  sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
   set_sockaddr(&srv_addr);
 
-  if (connect(sock_fd, (struct sockaddr *)&srv_addr, sizeof(srv_addr)) < 0) {
+  if (connect(sockfd, (struct sockaddr *)&srv_addr, sizeof(srv_addr)) < 0) {
     perror("connect()");
     exit(1);
   }
@@ -152,10 +154,10 @@ void client_run() {
     fgets(buf, sizeof(buf), stdin);
     c = strlen(buf) - 1;
     buf[c] = '\0';
-    write(sock_fd, buf, c + 1);
+    write(sockfd, buf, c + 1);
 
     bzero(buf, sizeof(buf));
-    while (errno != EAGAIN && (n = read(sock_fd, buf, sizeof(buf))) > 0) {
+    while (errno != EAGAIN && (n = read(sockfd, buf, sizeof(buf))) > 0) {
       printf("echo: %s\n", buf);
       bzero(buf, sizeof(buf));
 
@@ -165,5 +167,5 @@ void client_run() {
       }
     }
   }
-  close(sock_fd);
+  close(sockfd);
 }
