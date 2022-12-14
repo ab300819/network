@@ -66,4 +66,4 @@ add_subdirectory(src/networking_in_action)
 add_subdirectory(src/unp)
 add_subdirectory(src/algorithm)
 
-add_executable(main src/main.c)
+add_executable(main src/main.cpp)
