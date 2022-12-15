@@ -23,6 +23,8 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(APUE /Users/mason/Project/book_source/unix/apue.3e)
     set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
     find_package(uriparser 0.9.6 CONFIG REQUIRED char)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
+
 endif ()
 
 # 判断编译器
@@ -65,5 +67,6 @@ add_subdirectory(src/mini_http_server)
 add_subdirectory(src/networking_in_action)
 add_subdirectory(src/unp)
 add_subdirectory(src/algorithm)
+add_subdirectory(tests)
 
 add_executable(main src/main.cpp)
