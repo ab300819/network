@@ -57,7 +57,7 @@ link_directories(
         ${UNPV13}/lib
 )
 
-add_subdirectory(src/common)
+add_subdirectory(src/lib)
 add_subdirectory(src/apue)
 add_subdirectory(src/concurrency)
 add_subdirectory(src/core_in_c)
