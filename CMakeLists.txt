@@ -14,18 +14,17 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # 判断操作系统
 message(STATUS "Current platform: ${CMAKE_SYSTEM_NAME}")
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-    set(APUE /opt/apue.3e)
-    # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
     find_package(PkgConfig REQUIRED)
     pkg_search_module(URIPARSER REQUIRED liburiparser)
+    # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
-#    set(CMAKE_OSX_DEPLOYMENT_TARGET)
-    set(APUE /Users/mason/Project/book_source/unix/apue.3e)
-    set(UNPV13 /Users/mason/Project/book_source/unix/unpv13e)
     find_package(uriparser 0.9.6 CONFIG REQUIRED char)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
-
+    #to-do
 endif ()
+
+message(STATUS "apue dir: ${APUE}")
+message(STATUS "unp dir: ${UNPV13}")
 
 # 判断编译器
 message(STATUS "Use ${CMAKE_CXX_COMPILER_ID}")
@@ -46,17 +45,17 @@ if (NOT HAS_HEADER)
     message(FATAL_ERROR "Necessary header files are not found!")
 endif ()
 
-# C 单元测试模块
-find_package(cmocka REQUIRED)
-
 include_directories(.
         /usr/local/include
         ${APUE}/include
         ${UNPV13}/include
-        src/common)
+        src/common
+        )
 
-link_directories(${APUE}/lib
-        ${UNPV13}/lib)
+link_directories(
+        ${APUE}/lib
+        ${UNPV13}/lib
+)
 
 add_subdirectory(src/common)
 add_subdirectory(src/apue)
