@@ -11,6 +11,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # 显示原始编译信息
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
+# Put the libaries and binaries that get built into directories at the
+# top of the build tree rather than in hard-to-find leaf directories.
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+
 # 判断操作系统
 message(STATUS "Current platform: ${CMAKE_SYSTEM_NAME}")
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
@@ -45,11 +51,31 @@ if (NOT HAS_HEADER)
     message(FATAL_ERROR "Necessary header files are not found!")
 endif ()
 
-include_directories(.
+include(CheckSymbolExists)
+check_symbol_exists(epoll_create "sys/epoll.h" EPOLL_EXISTS)
+if (EPOLL_EXISTS)
+    # Linux下设置为epoll
+    set(EPOLL_ENABLE 1 CACHE INTERNAL "enable epoll")
+
+    # Linux下也设置为poll
+    # set(EPOLL_ENABLE "" CACHE INTERNAL "not enable epoll")
+else ()
+    set(EPOLL_ENABLE "" CACHE INTERNAL "not enable epoll")
+endif ()
+
+configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/yolanda/config.h.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/include/config.h
+)
+
+include_directories(
+        ${PROJECT_SOURCE_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}/include
         /usr/local/include
         ${APUE}/include
         ${UNPV13}/include
-        src/common
+        src/lib
+        src/lib/yolanda
         )
 
 link_directories(

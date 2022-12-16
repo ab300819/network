@@ -1,3 +1,5 @@
+add_subdirectory(yolanda)
+
 add_executable(thread thread.c)
 target_link_libraries(thread pthread)
 

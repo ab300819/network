@@ -1,11 +1,7 @@
 //
 // Created by mason on 2022/4/23.
 //
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <sys/socket.h>
+#include "common.h"
 
 #include "utils.h"
 
