@@ -87,15 +87,19 @@ link_directories(
 )
 
 add_subdirectory(src/lib)
+# Essential C++
+add_subdirectory(src/essential)
+# C++ Primer
+add_subdirectory(src/cpp_primer)
+add_subdirectory(src/csapp)
 add_subdirectory(src/apue)
+add_subdirectory(src/unp)
 add_subdirectory(src/concurrency)
 add_subdirectory(src/core_in_c)
-add_subdirectory(src/essential)
-add_subdirectory(src/mini_http_server)
 add_subdirectory(src/networking_in_action)
-add_subdirectory(src/unp)
-add_subdirectory(src/csapp)
+add_subdirectory(src/mini_http_server)
 add_subdirectory(src/algorithm)
+add_subdirectory(src/playground)
 add_subdirectory(tests)
 
 add_executable(main src/main.cpp)
