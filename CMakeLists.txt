@@ -31,6 +31,7 @@ endif ()
 
 message(STATUS "apue dir: ${APUE}")
 message(STATUS "unp dir: ${UNPV13}")
+message(STATUS "csapp dir: ${CSAPP}")
 
 # 判断编译器
 message(STATUS "Use ${CMAKE_CXX_COMPILER_ID}")
@@ -73,14 +74,16 @@ include_directories(
         ${CMAKE_CURRENT_BINARY_DIR}/include
         /usr/local/include
         ${APUE}/include
-        ${UNPV13}/include
+        ${UNPV13}/lib
+        ${CSAPP}/include
         src/lib
         src/lib/yolanda
-        )
+)
 
 link_directories(
         ${APUE}/lib
-        ${UNPV13}/lib
+        ${UNPV13}
+        ${CSAPP}/lib
 )
 
 add_subdirectory(src/lib)
@@ -91,6 +94,7 @@ add_subdirectory(src/essential)
 add_subdirectory(src/mini_http_server)
 add_subdirectory(src/networking_in_action)
 add_subdirectory(src/unp)
+add_subdirectory(src/csapp)
 add_subdirectory(src/algorithm)
 add_subdirectory(tests)
 

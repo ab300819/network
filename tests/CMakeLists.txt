@@ -1,4 +1,4 @@
-if (NOT DEFINED GoogleTest_DIR)
+if (NOT DEFINED GTest_DIR)
     include(FetchContent)
     FetchContent_Declare(
             googletest
@@ -14,7 +14,7 @@ if (NOT DEFINED GoogleTest_DIR)
     FetchContent_MakeAvailable(googletest)
     include(GoogleTest)
 else ()
-    find_package(GoogleTest REQUIRED)
+    find_package(GTest REQUIRED)
 endif ()
 
 enable_testing()
