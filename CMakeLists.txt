@@ -22,6 +22,7 @@ message(STATUS "Current platform: ${CMAKE_SYSTEM_NAME}")
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     find_package(PkgConfig REQUIRED)
     pkg_search_module(URIPARSER REQUIRED liburiparser)
+    pkg_search_module(libevent REQUIRED libevent)
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     find_package(uriparser 0.9.6 CONFIG REQUIRED char)
@@ -43,6 +44,10 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
     # using Intel C++
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     # using Visual Studio C++
+endif ()
+
+if (POLICY CMP0069)
+    cmake_policy(SET CMP0069 NEW)
 endif ()
 
 include(CheckIncludeFiles)
