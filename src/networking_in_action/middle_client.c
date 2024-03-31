@@ -9,10 +9,10 @@ int main(int argc, char **argv) {
     memset(send_line, 0, MAX_LINE);
 
     fd_set read_fd;
+    FD_ZERO(&read_fd);
     int max_fdp = sock_fd + 1;
 
-    while (1) {
-        FD_ZERO(&read_fd);
+    for (;;) {
         FD_SET(fileno(stdin), &read_fd);
         FD_SET(sock_fd, &read_fd);
 
