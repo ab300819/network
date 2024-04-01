@@ -10,5 +10,6 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     add_executable(event_server epoll_tcp_server.c)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     add_executable(event_server kqueue_tcp_server.c)
+    target_link_libraries(core PUBLIC uriparser::uriparser)
 endif ()
 

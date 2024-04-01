@@ -22,17 +22,15 @@ message(STATUS "Current platform: ${CMAKE_SYSTEM_NAME}")
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     find_package(PkgConfig REQUIRED)
     pkg_search_module(URIPARSER REQUIRED liburiparser)
-    pkg_search_module(libevent REQUIRED libevent)
+
+    find_package(LIBEVENT REQUIRED)
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     add_compile_options(-Wno-incompatible-function-pointer-types)
-    find_package(uriparser 0.9.6 CONFIG REQUIRED char)
+    find_package(uriparser CONFIG REQUIRED char)
     find_package(PkgConfig REQUIRED)
-    pkg_check_modules(LIBEVENT_CORE REQUIRED libevent_core)
-    pkg_check_modules(LIBEVENT_EXTRA REQUIRED libevent_extra)
-    set(EVENT_CORE ${LIBEVENT_CORE_LINK_LIBRARIES})
-    set(EVENT_EXTRA ${LIBEVENT_EXTRA_LINK_LIBRARIES})
-    include_directories(${LIBEVENT_CORE_INCLUDE_DIRS})
+
+    pkg_check_modules(LIBEVENT REQUIRED libevent)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
     #to-do
 endif ()
@@ -40,6 +38,7 @@ endif ()
 message(STATUS "apue dir: ${APUE}")
 message(STATUS "unp dir: ${UNPV13}")
 message(STATUS "csapp dir: ${CSAPP}")
+message(STATUS "libevent dir: ${LIBEVENT_LINK_LIBRARIES}")
 
 # 判断编译器
 message(STATUS "Use ${CMAKE_CXX_COMPILER_ID}")
@@ -90,6 +89,7 @@ include_directories(
         ${CSAPP}/include
         src/lib
         src/lib/yolanda
+        ${LIBEVENT_INCLUDE_DIRS}
 )
 
 link_directories(
